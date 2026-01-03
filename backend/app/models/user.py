@@ -1,5 +1,8 @@
 from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
+
 from app.database import Base
+
 
 class User(Base):
     __tablename__ = "users"
@@ -8,3 +11,10 @@ class User(Base):
     name = Column(String, nullable=False)
     email = Column(String, unique=True, index=True, nullable=False)
     password = Column(String, nullable=False)
+
+    # relationship with Task
+    tasks = relationship(
+        "Task",
+        back_populates="user",
+        cascade="all, delete"
+    )
