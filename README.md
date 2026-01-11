@@ -1,4 +1,4 @@
-# LUMORA
+# TaskFlow
 
 A smart personal productivity & life-assistant system built with:
 - FastAPI
