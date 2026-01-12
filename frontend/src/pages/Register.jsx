@@ -3,7 +3,8 @@ import { useNavigate, Link } from "react-router-dom";
 import api from "../api/api";
 import "../styles/auth.css";
 
-export default function Login() {
+export default function Register() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
@@ -16,11 +17,16 @@ export default function Login() {
     setLoading(true);
 
     try {
+      // create account
+      await api.post("/auth/register", { name, email, password });
+
+      // auto-login
       const res = await api.post("/auth/login", { email, password });
       localStorage.setItem("token", res.data.access_token);
+
       navigate("/dashboard");
     } catch (err) {
-      setMsg(err.response?.data?.detail || "Invalid email or password");
+      setMsg(err.response?.data?.detail || "Registration failed");
     } finally {
       setLoading(false);
     }
@@ -29,10 +35,18 @@ export default function Login() {
   return (
     <div className="auth-container">
       <div className="auth-box">
-        <h2>Welcome back</h2>
-        <p>Sign in to TaskFlow</p>
+        <h2>Create account</h2>
+        <p>Start using TaskFlow</p>
 
         <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Full name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+
           <input
             type="email"
             placeholder="Email"
@@ -50,15 +64,15 @@ export default function Login() {
           />
 
           <button disabled={loading}>
-            {loading ? "Signing in..." : "Login"}
+            {loading ? "Creating account..." : "Register"}
           </button>
 
           {msg && <div className="auth-error">{msg}</div>}
         </form>
 
         <div className="auth-footer">
-          <span>Don't have an account?</span>
-          <Link to="/register">Create one</Link>
+          <span>Already have an account?</span>
+          <Link to="/login">Login</Link>
         </div>
       </div>
     </div>

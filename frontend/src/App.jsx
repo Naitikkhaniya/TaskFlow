@@ -1,18 +1,19 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Launch from "./pages/Launch";
+import Register from "./pages/Register";
 
 export default function App() {
   return (
-    <div>
-      <nav style={{ background: "#eee", padding: 10 }}>
-        <Link to="/login" style={{ marginRight: 10 }}>Login</Link>
-        <Link to="/dashboard">Dashboard</Link>
-      </nav>
+    <Launch>
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
-    </div>
+    </Launch>
   );
 }

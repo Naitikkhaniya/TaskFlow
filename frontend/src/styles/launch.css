@@ -1,0 +1,44 @@
+.launch-screen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #0f0f23, #1a1a3e);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeOut 0.6s ease 2.2s forwards;
+}
+
+.launch-text {
+  font-size: 4rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #667eea, #f093fb);
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: glow 2s infinite;
+  position: relative;
+  z-index: 2;
+}
+
+.glow-ring {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 2px solid rgba(102, 126, 234, 0.4);
+  animation: pulse 2s infinite;
+}
+
+@keyframes glow {
+  0%,100% { filter: drop-shadow(0 0 10px #667eea); }
+  50% { filter: drop-shadow(0 0 25px #f093fb); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; visibility: hidden; }
+}
